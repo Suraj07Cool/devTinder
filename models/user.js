@@ -1,4 +1,5 @@
 const mongoose  = require("mongoose");
+const { min } = require("../validation/userSchema");
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -11,11 +12,15 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
+        unique: true,
+        minlength: 5,
+        maxlength: 80,
     },
     password: {
         type: String,
         required: true,
-    },
+        maxlength: 150
+      },
     gender:{
         type:String,
         enum: ["male", "female", "other"],

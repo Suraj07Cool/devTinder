@@ -1,15 +1,16 @@
 const express=require('express')
 const connectDB=require('./config/database')
+const limiter=require('./config/rateLimit')
 const userSignUp=require('./controllers/authController')    
 const app=express()
 const userSchema = require('./validation/userSchema')
 const validatorMiddleware = require('./middleware/validatorMiddleware')
 const routes = require('./routes/routes')
 app.use(express.json())
-console.log("<<<<<<",validatorMiddleware)
+
 //user routes
+app.use(limiter)
 app.use('/',routes)     
-// app.post('/sign-up', validatorMiddleware(userSchema), userSignUp)
 
 
 connectDB().then(()=>{ 
